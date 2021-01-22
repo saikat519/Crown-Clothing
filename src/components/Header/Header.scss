@@ -1,0 +1,41 @@
+.header {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    padding-left:45px;
+      
+    .logo-container {
+      height: 100%;
+      width: 70px;
+      padding: 30px;
+      padding-left: 20px;
+      
+    }
+  
+    .options {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      flex:0.6;
+      align-items: center;
+      justify-content: flex-end;
+      margin-right:125px;
+      margin-top:15px;
+
+      
+  
+      .option {
+        padding-right: 15px;
+        margin-top:25px;
+        text-decoration: none; 
+        color:black;
+
+        &:hover {
+          color: rgb(85, 85, 163);
+        }
+      }
+    }
+}
+

@@ -15,15 +15,14 @@ export default class shop extends Component {
 
     render() {
         return (
-            <div>
-                <h1>Collections</h1>
+            
                 <div className='shop-page'>
-                
+                    <h1>Collections</h1>
                     {this.state.collections.map(({ id, ...otherCollectionProps }) => (
                     <CollectionPreview key={id} {...otherCollectionProps} />
                     ))}
                 </div>
-            </div>
+            
         )
     }
 }
