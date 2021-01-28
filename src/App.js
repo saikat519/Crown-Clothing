@@ -1,43 +1,68 @@
-import React,{ useEffect,useState } from 'react'
+import React from 'react'
 import './App.css';
 import HomePage from './pages/Homepage/Homepage'
 import ShopPage from './pages/Shop/Shop'
 import Header from './components/Header/Header'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import SignIn from './components/Sign-in/SignIn'
-import {auth} from './firebase.util'
+import SignInSignUp from './pages/SignIn-SignUp/SignIn-SignUp'
+import {auth,createUserProfileDocument} from './firebase.util'
+class App extends React.Component {
+  constructor() {
+    super();
 
-function App() {
+    this.state = {
+      currentUser: null
+    };
+  }
 
-  const [currentUser, setCurrentUser] = useState(null);
-  useEffect(() => {
-    // will only run once when the app component loads...
+  unsubscribeFromAuth = null;
 
-    auth.onAuthStateChanged((authUser) => {
-      console.log("THE USER IS >>> ", authUser);
+  componentDidMount() {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
 
-      if (authUser) {
-        // the user just logged in / the user was logged in
-        setCurrentUser(authUser)
-        //console.log(currentUser);
-      } 
+        userRef.onSnapshot(snapShot => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          });
+
+          console.log(this.state.currentUser);
+        });
+      }
+
+      else {
+        //it only fires when user is logged out bcz userAuth is only empty when the user is logged out
+        console.log("LOG out",userAuth)
+        this.setState({ currentUser: userAuth });
+      }
     });
-  }, [currentUser]);
+  }
 
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <Header currentUser={currentUser} />
-        <Switch>
-          <Route exact path='/signin' component={SignIn} />
-          <Route exact path='/shop' component={ShopPage} />
-          <Route exact path='/' component={HomePage} />
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
+
+  render() {
+
+    return (
+      <BrowserRouter>
+        <div className="App">
+          <Header currentUser={this.state.currentUser} />
+          <Switch>
+            <Route exact path='/signin' component={SignInSignUp} />
+            <Route exact path='/shop' component={ShopPage} />
+            <Route exact path='/' component={HomePage} />
           
-        </Switch>
+          </Switch>
         
-      </div>
-    </BrowserRouter>
-  );
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;

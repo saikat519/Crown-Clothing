@@ -10,7 +10,7 @@ const MenuItem = ({ title, imageUrl, size }) => {
     history.push(`/${title}`)
   }
 
-   return <div className={`${size} menu-item`} onClick={handleClick} >
+  return <div className={`${size} menu-item`} onClick={handleClick} >
     <div
       className='background-image'
       style={{
