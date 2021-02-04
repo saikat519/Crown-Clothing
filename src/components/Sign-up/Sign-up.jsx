@@ -5,8 +5,6 @@ import CustomButton from '../CustomButton/CustomButton';
 import { auth, createUserProfileDocument } from '../../firebase.util'
 import './Sign-up.scss'
 
-
-
 function SignUp() {
 
     const history = useHistory();

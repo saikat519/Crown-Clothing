@@ -16,7 +16,7 @@ function SignIn() {
     auth
         .signInWithPopup(provider)
       .then(result => {
-        console.log(result.user);
+        //console.log(result.user);
       })
       .catch(err => {
         alert(err.message)
@@ -65,7 +65,7 @@ function SignIn() {
         <div className='buttons'>
             <CustomButton type='submit'> Sign in </CustomButton>
             
-            <CustomButton className="google-btn" onClick={signInWithGoogle}>Sign in with Google</CustomButton>
+            <CustomButton type="button" className="google-btn" onClick={signInWithGoogle}>Sign in with Google</CustomButton>
         </div>  
                   
         </form>
