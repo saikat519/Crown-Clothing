@@ -17,7 +17,7 @@ export default class shop extends Component {
         return (
             
                 <div className='shop-page'>
-                    <h1>Collections</h1>
+                    <center><h1>Collections</h1></center>
                     {this.state.collections.map(({ id, ...otherCollectionProps }) => (
                     <CollectionPreview key={id} {...otherCollectionProps} />
                     ))}
